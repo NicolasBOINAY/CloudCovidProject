@@ -1,0 +1,85 @@
+<div class="text-center">
+    <h1>COVID-19</h1>
+    <p>Live Updates and Statistics : all the infos you want to know</p>
+    <img src="https://firebasestorage.googleapis.com/v0/b/covidproject-5ff37.appspot.com/o/imagesCovid.jpeg?alt=media&token=6df7872d-bc09-4795-8a08-876eea50616f" alt="">
+</div>
+
+<div class="mt-4 btn-toolbar pull-right d-flex justify-content-center">
+    <button class="btn btn-info mr-3" (click)="covidinfosService.signInWithGoogle()">Sign in with Google</button>
+    <button class="btn btn-info mr-3" (click)="displayWorldData()">Show World Data</button>
+    <button class="btn btn-info mr-3" (click)="DisplayWeeklyData()">Show Daily Data </button>
+    <button class="btn btn-info mr-3" (click)="DisplayMonthlyData()">Show Total Data</button>
+    <button class="btn btn-info" (click)="goToPage(country-cases)">
+        <span>Go to Country page</span>
+     </button>
+</div>
+
+    <div class="my-3">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>New confirmed</th>
+                    <th>Total confirmed</th>
+                    <th>Active cases</th>
+                    <th>New deaths</th>
+                    <th>Total deaths</th>
+                    <th>Mortality Rate</th>
+                    <th>New recovered</th>
+                    <th>Total recovered</th>
+                    <th>Recovery rate</th>
+                </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+        </table>        
+    </div>
+
+    
+    <div style="text-align: center;margin-top: 50px;">
+        <h4>Covid19 cases Worldwide summary </h4>
+    </div>
+    <div class="chart-wrapper">
+        <canvas baseChart 
+        [data]="pieChartData" 
+        [labels]="pieChartLabels" 
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend">
+      </canvas>
+    </div>
+
+    <div style="text-align: center;margin-top: 50px;">
+        <h4> Daily Covid19 cases Worldwide  </h4>
+    </div>
+    <div class="chart-wrapper">
+        <canvas baseChart 
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType">
+      </canvas>
+    </div>
+   
+    
+    <div style="text-align: center;margin-top: 50px;">
+        <h4> Total Covid19 cases Worldwide on last 30 days </h4>
+    </div>
+    <div class="chart-wrapper">
+        <canvas baseChart 
+            [datasets]="lineChartData" 
+            [labels]="lineChartLabels"
+            [chartType]="lineChartType" 
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend" 
+            [plugins]="lineChartPlugins">
+        </canvas>
+    </div>
+
+
+
+
+
+

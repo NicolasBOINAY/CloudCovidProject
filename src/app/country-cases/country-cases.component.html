@@ -1,0 +1,83 @@
+<div>
+    <div class="container">
+        <form style="margin-top: 20px">
+            <label>Choose a country : </label>
+            <select id="select_countries" class="select" placeholder="Choose a country--"></select>
+        </form>
+    </div>
+</div>
+<div class="mt-4 btn-toolbar pull-right d-flex justify-content-center">
+        <button  class="btn btn-info mr-3"(click)="displayCountryData()">Show Country's Data</button>
+        <button  class="btn btn-info mr-3"(click)="DisplayWeeklyData()">Show Country's Weekly Summary</button>
+        <button  class="btn btn-info mr-3"(click)="DisplayHistoryData()">Show Country's Historical</button>
+        <button class="btn btn-info" (click)="goToPage(worldwide-cases)">
+            <span>Homepage</span>
+         </button>
+    
+</div>
+
+<div class="my-9 table mt-4">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr class="text">
+                <th>Country</th>
+                <th>Country Code</th>
+                <th>Slug</th>
+                <th>New Confirmed</th>
+                <th>Total Confirmed</th>
+                <th>Active Cases</th>
+                <th>New Dead</th>
+                <th>Total Dead</th>
+                <th>Mortality Rate</th>
+                <th>New Recovered</th>
+                <th>Total Recovered</th>
+                <th>Recovery Rate</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id ="table"></tbody>
+    </table>
+</div>
+
+<div style="text-align: center;margin-top: 50px;">
+    <h4>Covid19 cases  summary </h4>
+</div>
+<div class="chart-wrapper">
+    <canvas baseChart 
+    [data]="pieChartData" 
+    [labels]="pieChartLabels"
+    [indexLabelPlacement]= "outside" 
+    [chartType]="pieChartType"
+    [options]="pieChartOptions"
+    [plugins]="pieChartPlugins"
+    [legend]="pieChartLegend">
+  </canvas>
+</div>
+
+<div style="text-align: center;margin-top: 50px;">
+    <h4> Daily Covid19 cases  </h4>
+</div>
+<div class="chart-wrapper">
+    <canvas baseChart 
+    [datasets]="barChartData"
+    [labels]="barChartLabels"
+    [options]="barChartOptions"
+    [plugins]="barChartPlugins"
+    [legend]="barChartLegend"
+    [chartType]="barChartType">
+  </canvas>
+</div>
+
+<div style="text-align: center;margin-top: 50px;">
+    <h4> Total Covid19 cases </h4>
+</div>
+<div class="chart-wrapper">
+    <canvas baseChart 
+        [datasets]="lineChartData" 
+        [labels]="lineChartLabels"
+        [chartType]="lineChartType" 
+        [options]="lineChartOptions"
+        [legend]="lineChartLegend" 
+        [plugins]="lineChartPlugins">
+    </canvas>
+</div>
