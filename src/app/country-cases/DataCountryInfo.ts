@@ -25,8 +25,8 @@ constructor(Country: string,CountryCode: string,Slug: string,NewConfirmed: numbe
     this.NewRecovered = NewRecovered;
     this.TotalRecovered = TotalRecovered;
     this.Date = Date;
-    this.ActiveCases = ActiveCases;
+    this.RecoveryRate = RecoveryRate;    
     this.MortalityRate = MortalityRate;
-    this.RecoveryRate = RecoveryRate
+    this.ActiveCases = ActiveCases
 }
 }

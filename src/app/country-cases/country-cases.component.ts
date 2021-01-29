@@ -83,9 +83,10 @@ export class CountryCasesComponent implements OnInit {
     public covidinfosService: CovidinfosService,
     private http: HttpClient,
     private router: Router, private firestore: AngularFirestore
+
   ) { }
 
-  async  goToPage(pageName:string){
+  async  goToPage(){
     this.router.navigate(["worldwide-cases"]);
   }
 
@@ -111,19 +112,20 @@ export class CountryCasesComponent implements OnInit {
     var todaydate = (new Date()).toISOString().slice(0,10);
     var countryname = (<HTMLInputElement>document.querySelector("#select_countries")).value;
     this.covidinfosService.getCountryDataFromFirebase().subscribe((data:any)=>{
-      if(this.country == undefined || this.country.Date<todaydate){
+
+      if(data.Date<todaydate){
         
         this.getDataCountry().subscribe(data =>{
           this.DataCountryInfoList = data.Countries;
-          this.country = data.Countries;
+          this.country = this.DataCountryInfoList.find(x => x.Country == countryname)!;
           this.country.MortalityRate = ((this.country.TotalDeaths/this.country.TotalConfirmed)*100).toFixed(2);
           this.country.RecoveryRate = ((this.country.TotalRecovered/this.country.TotalConfirmed)*100).toFixed(2);
           this.country.ActiveCases = this.country.TotalConfirmed - this.country.TotalRecovered-this.country.TotalDeaths;
+          
           console.log(this.country.ActiveCases);
           this.country.Date = todaydate;
-          this.country =  this.DataCountryInfoList.find(x => x.Country === countryname);
-          console.log(this.country);
-          this.covidinfosService.updateCountryData(this.country);
+          console.log(countryname);
+          this.covidinfosService.updateCountryData(this.DataCountryInfoList.find(x => x.Country == countryname));
           this.covidinfosService.updateCountryAll({listAll : this.DataCountryAll});
           this.DisplayTable(this.country);
           this.ShowPieChart();
@@ -132,13 +134,14 @@ export class CountryCasesComponent implements OnInit {
         
       }
       else{
+        this.country = this.DataCountryInfoList.find(x => x.Country == countryname)!;
         this.country.MortalityRate = ((this.country.TotalDeaths/this.country.TotalConfirmed)*100).toFixed(2);
         this.country.RecoveryRate = ((this.country.TotalRecovered/this.country.TotalConfirmed)*100).toFixed(2);
         this.country.ActiveCases = this.country.TotalConfirmed - this.country.TotalRecovered-this.country.TotalDeaths;
         console.log(this.country.ActiveCases);
         this.covidinfosService.getCountryDataFromFirebase().subscribe((data: any)=>{
           this.country = data;
-          this.country =  this.DataCountryInfoList.find(x => x.Country === countryname);
+          this.country =  this.DataCountryInfoList.find(x => x.Country === countryname)!;
           this.DisplayTable(this.country);
           
           this.ShowPieChart();
@@ -252,11 +255,14 @@ export class CountryCasesComponent implements OnInit {
       return 0;
     }
     listdates.sort(listedatestriee);
+    var liste = Array(30).join(".").split(".");;
+    
     for (let i=0; i<listdates.length; i++){
-    listdates[i] = new Date(listdates[i]).toLocaleDateString("en-US")
+    
+      liste[i] = new Date(listdates[i]).toLocaleDateString("en-US").toString();
+    
     }
-    console.log(listdates);
-    this.lineChartLabels = listdates;
+    this.lineChartLabels = liste;
     
     
     
@@ -305,10 +311,14 @@ ShowBarChart(){
         return 0;
       }
       listdates.sort(listedatestriee);
-      for (let i=0; i<listdates.length; i++){
-      listdates[i] = new Date(listdates[i]).toLocaleDateString("en-US")
-      }
-      this.barChartLabels = listdates;
+      var liste = Array(7).join(".").split(".");;
+    
+    for (let i=0; i<listdates.length; i++){
+    
+      liste[i] = new Date(listdates[i]).toLocaleDateString("en-US").toString();
+    
+    }
+      this.barChartLabels = liste;
       
       
       

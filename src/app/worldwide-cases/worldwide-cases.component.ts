@@ -67,7 +67,7 @@ export class WorldwideCasesComponent implements OnInit {
 
   ];
 
-  lineChartLabels: Label[] = [ [''],[''], [''], [''], [''], [''],[''] ,[''], [''], [''], [''], [''], [''],[''] ,[''], [''],[''] ,[''] ,[''] ,[''] ,[''] ,[''] ,[''] , [''],[''] ,[''] ,[''] ,[''] ,[''] ,[''] ];
+  public lineChartLabels: Label[] = [] ;
 
   lineChartOptions = {
     responsive: true,
@@ -86,7 +86,7 @@ export class WorldwideCasesComponent implements OnInit {
    
 
    }
-   async  goToPage(pageName:string){
+   async  goToPage(){
     this.router.navigate(["country-cases"]);
   }
 
@@ -211,6 +211,7 @@ export class WorldwideCasesComponent implements OnInit {
   
   ShowLineChart(){
     var listdates = []
+    var label: Label = '';
     for (let i in this.MonthlyCases.cases){
       listdates.push(Date.parse(i));
     }
@@ -224,12 +225,17 @@ export class WorldwideCasesComponent implements OnInit {
       return 0;
     }
     listdates.sort(listedatestriee);
+    var liste = Array(30).join(".").split(".");;
+    
     for (let i=0; i<listdates.length; i++){
-    listdates[i] = new Date(listdates[i]).toLocaleDateString("en-US")
+    
+      liste[i] = new Date(listdates[i]).toLocaleDateString("en-US").toString();
+    
     }
-    this.lineChartLabels = listdates;
+    this.lineChartLabels = liste;
     
     
+    console.log(this.lineChartLabels);
     
     var listcases = []
     for (let i in this.MonthlyCases.cases){
@@ -283,11 +289,18 @@ export class WorldwideCasesComponent implements OnInit {
       // a doit être égal à b
       return 0;
     }
+    
+    console.log("ok");
     listdates.sort(listedatestriee);
+    var liste = Array(8).join(".").split(".");;
+    
     for (let i=0; i<listdates.length; i++){
-    listdates[i] = new Date(listdates[i]).toLocaleDateString("en-US")
+    
+      liste[i] = new Date(listdates[i]).toLocaleDateString("en-US").toString();
+    
     }
-    this.barChartLabels = listdates;
+    
+    this.barChartLabels = liste;
     
     
     

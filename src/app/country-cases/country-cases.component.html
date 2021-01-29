@@ -10,7 +10,7 @@
         <button  class="btn btn-info mr-3"(click)="displayCountryData()">Show Country's Data</button>
         <button  class="btn btn-info mr-3"(click)="DisplayWeeklyData()">Show Country's Weekly Summary</button>
         <button  class="btn btn-info mr-3"(click)="DisplayHistoryData()">Show Country's Historical</button>
-        <button class="btn btn-info" (click)="goToPage(worldwide-cases)">
+        <button class="btn btn-info" (click)="goToPage()">
             <span>Homepage</span>
          </button>
     
@@ -46,7 +46,6 @@
     <canvas baseChart 
     [data]="pieChartData" 
     [labels]="pieChartLabels"
-    [indexLabelPlacement]= "outside" 
     [chartType]="pieChartType"
     [options]="pieChartOptions"
     [plugins]="pieChartPlugins"
